@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+@theme {
+  --color-surface-base: oklch(0.145 0.005 285);
+  --color-surface-1: oklch(0.175 0.008 285);
+  --color-surface-2: oklch(0.21 0.01 285);
+  --color-surface-3: oklch(0.26 0.012 285);
+
+  --color-accent-start: oklch(0.65 0.18 260);
+  --color-accent-end: oklch(0.60 0.22 300);
+  --color-accent: oklch(0.62 0.20 280);
+
+  --color-border-subtle: oklch(0.30 0.01 285);
+  --color-border-default: oklch(0.38 0.015 285);
+
+  --color-text-primary: oklch(0.95 0.005 285);
+  --color-text-secondary: oklch(0.65 0.01 285);
+  --color-text-muted: oklch(0.50 0.008 285);
+
+  --color-glass: oklch(0.20 0.01 285 / 0.6);
+  --color-glass-border: oklch(0.40 0.015 285 / 0.3);
+}
+
+/* ===== Utility Classes ===== */
+
+.glass-card {
+  background: var(--color-glass);
+  backdrop-filter: blur(16px) saturate(1.5);
+  border: 1px solid var(--color-glass-border);
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px oklch(0 0 0 / 0.3), 0 4px 20px oklch(0 0 0 / 0.2);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-accent-start), var(--color-accent-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-gradient {
+  background: linear-gradient(135deg, var(--color-accent-start), var(--color-accent-end));
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px oklch(0.62 0.20 280 / 0.25);
+}
+.btn-gradient:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px oklch(0.62 0.20 280 / 0.35);
+}
+.btn-gradient:active {
+  transform: translateY(0);
+}
+.btn-gradient:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-surface {
+  background: var(--color-surface-2);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-subtle);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-surface:hover {
+  background: var(--color-surface-3);
+  border-color: var(--color-border-default);
+}
+
+.bg-ambient {
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 20%, oklch(0.25 0.08 260 / 0.15), transparent),
+    radial-gradient(ellipse 50% 40% at 80% 80%, oklch(0.22 0.10 300 / 0.12), transparent),
+    var(--color-surface-base);
+}
+
+.input-field {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-primary);
+  transition: all 0.2s ease;
+}
+.input-field:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px oklch(0.62 0.20 280 / 0.15);
+}
+
+/* ===== Animations ===== */
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes glow-pulse {
+  0%, 100% { filter: drop-shadow(0 0 8px currentColor); }
+  50% { filter: drop-shadow(0 0 20px currentColor); }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out both;
+}
+.animate-scale-in {
+  animation: scale-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.stagger > * { animation: fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 75ms; }
+.stagger > *:nth-child(3) { animation-delay: 150ms; }
+.stagger > *:nth-child(4) { animation-delay: 225ms; }
+.stagger > *:nth-child(5) { animation-delay: 300ms; }
+.stagger > *:nth-child(6) { animation-delay: 375ms; }
+.stagger > *:nth-child(7) { animation-delay: 450ms; }
+.stagger > *:nth-child(8) { animation-delay: 525ms; }
+
+/* ===== Print ===== */
+
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .print\:hidden { display: none !important; }
+  .print\:block { display: block !important; }
+  .glass-card {
+    background: #f9fafb;
+    backdrop-filter: none;
+    border: 1px solid #d1d5db;
+    box-shadow: none;
+  }
+}
